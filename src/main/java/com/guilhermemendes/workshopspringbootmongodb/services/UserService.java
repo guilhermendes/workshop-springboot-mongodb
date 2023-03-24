@@ -1,6 +1,7 @@
 package com.guilhermemendes.workshopspringbootmongodb.services;
 
 import com.guilhermemendes.workshopspringbootmongodb.domain.User;
+import com.guilhermemendes.workshopspringbootmongodb.dto.UserDTO;
 import com.guilhermemendes.workshopspringbootmongodb.repository.UserRepository;
 import com.guilhermemendes.workshopspringbootmongodb.services.exception.ObjectNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,5 +21,13 @@ public class UserService {
     public User findById(String id) {
         Optional<User> obj = repo.findById(id);
         return obj.orElseThrow(() -> new ObjectNotFoundException("Objeto não encontrado"));
+    }
+
+    public User insert(User obj){
+        return repo.insert(obj);
+    }
+
+    public User formDTO(UserDTO objDto){
+        return new User(objDto.getId(), objDto.getNome(), objDto.getEmail());
     }
 }
