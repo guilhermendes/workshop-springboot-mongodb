@@ -29,7 +29,7 @@ public class UserResource {
         return ResponseEntity.ok().body(listDto);
     }
 
-    @GetMapping(value="{id}")
+    @GetMapping(value="/{id}")
     public ResponseEntity<UserDTO> findById(@PathVariable String id){
         User obj = service.findById(id);
 
@@ -44,9 +44,18 @@ public class UserResource {
         return ResponseEntity.created(uri).build();
     }
 
-    @DeleteMapping(value="{id}")
+    @DeleteMapping(value="/{id}")
     public ResponseEntity<Void> delete(@PathVariable String id){
        service.delete(id);
+
+        return ResponseEntity.noContent().build();
+    }
+
+    @PutMapping(value="/{id}")
+    public ResponseEntity<Void> update(@RequestBody UserDTO objDto, @PathVariable String id){
+        User obj = service.formDTO(objDto);
+        obj.setId(id);
+        obj = service.update(obj);
 
         return ResponseEntity.noContent().build();
     }
