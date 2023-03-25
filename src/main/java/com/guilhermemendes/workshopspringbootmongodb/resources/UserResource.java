@@ -1,5 +1,6 @@
 package com.guilhermemendes.workshopspringbootmongodb.resources;
 
+import com.guilhermemendes.workshopspringbootmongodb.domain.Post;
 import com.guilhermemendes.workshopspringbootmongodb.domain.User;
 import com.guilhermemendes.workshopspringbootmongodb.dto.UserDTO;
 import com.guilhermemendes.workshopspringbootmongodb.services.UserService;
@@ -60,6 +61,12 @@ public class UserResource {
         return ResponseEntity.noContent().build();
     }
 
+    @GetMapping(value="/{id}/posts")
+    public ResponseEntity<List<Post>> findPosts(@PathVariable String id){
+        User obj = service.findById(id);
+
+        return ResponseEntity.ok().body(obj.getPosts());
+    }
 
 
 }
